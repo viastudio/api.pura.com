@@ -1,0 +1,17 @@
+php_value newrelic.appname "api.pura.com;Production"
+php_value newrelic.license 9193d7eb134e5d8cdaf827c81f8e4b204c804b83
+
+AddType image/svg+xml .svg .svgz
+
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /
+
+    # force non-www
+    RewriteCond %{HTTP_HOST} ^www\.api\.pura\.com
+    RewriteRule ^(.*)$ http://api.pura.com/$1 [R=301,L]
+
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule . /index.php [L]
+</IfModule>

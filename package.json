@@ -1,0 +1,15 @@
+{
+  "name": "api.pura.com",
+  "version": "0.1.0",
+  "domain": "api_pura",
+  "themesPath": "wp-content/themes",
+  "wpengine-install": "via_pura",
+  "dependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-shell": "~0.7.0",
+    "grunt-hub": "~0.6.2",
+    "grunt-via-filesystem": "git+ssh://git@github.com:viastudio/grunt-via-filesystem.git"
+  }
+}
