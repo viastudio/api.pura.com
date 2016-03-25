@@ -1,0 +1,225 @@
+/*
+ * Does the same thing as <meta name="viewport" content="width=device-width">,
+ * but in the future W3C standard way. -ms- prefix is required for IE10+ to
+ * render responsive styling in Windows 8 "snapped" views; IE10+ does not honor
+ * the meta tag. See https://core.trac.wordpress.org/ticket/25888.
+ */
+@-ms-viewport {
+	width: device-width;
+}
+
+@viewport {
+	width: device-width;
+}
+
+/**
+ * 12.1 Mobile Large 770px
+ */
+
+@media screen and (min-width: 770px) {
+/* Typography */
+body,
+button,
+input,
+select,
+textarea {
+	font-size: 20px;
+	line-height: 1.6;
+}
+address,
+blockquote,
+blockquote p,
+p,
+pre {
+	margin-bottom: 32px;
+}
+
+/* Elements */
+dd,
+dl,
+hr,
+ol,
+table,
+ul {
+	margin-bottom: 32px;
+}
+
+.site-branding {
+ 	padding: 32px 64px;
+}
+
+.site-title {
+	font-size: 29px;
+	line-height: (40/29);
+}
+
+.site-description {
+	font-size: 15px;
+	line-height: (24/15);
+	margin-top: 0;
+}
+
+.hentry {
+	padding: 64px 0;
+}
+
+.entry-header {
+	padding: 0 64px;
+	margin: 0 auto;
+	max-width: 770px;
+}
+
+.entry-title {
+	font-size: 41px;
+	line-height: (56/41);
+}
+
+.entry-meta {
+	font-size: 17px;
+	line-height: (28/17);
+	margin: 16px auto 0;
+	max-width: 770px;
+	padding: 0 64px;
+}
+
+.entry-content,
+.entry-summary {
+	padding: 32px 64px 64px;
+	max-width: 770px;
+}
+
+.entry-content h1,
+.entry-summary h1,
+.page-content h1,
+.comment-content h1 {
+	font-size: 41px;
+	line-height: (56/41);
+}
+
+.entry-content h2,
+.entry-summary h2,
+.page-content h2,
+.comment-content h2 {
+	font-size: 35px;
+	line-height: (48/35);
+}
+
+.entry-content h3,
+.entry-summary h3,
+.page-content h3,
+.comment-content h3 {
+	font-size: 29px;
+	line-height: (40/29);
+}
+
+.entry-content h4,
+.entry-summary h4,
+.page-content h4,
+.comment-content h4 {
+	font-size: 24px;
+	line-height: (32/24);
+}
+
+.entry-content h5,
+.entry-content h6,
+.entry-summary h5,
+.entry-summary h6,
+.page-content h5,
+.page-content h6,
+.comment-content h5,
+.comment-content h6 {
+	font-size: 20px;
+	line-height: (24/20);
+}
+
+.comments-area {
+	padding: 32px 64px;
+	max-width: 770px;
+}
+
+.comment-list + .comment-respond,
+.comment-navigation + .comment-respond {
+	padding-top: 32px;
+}
+
+.comments-title,
+.comment-reply-title {
+	font-size: 24px;
+	line-height: (32/24);
+}
+
+.comments-title,
+.comment-reply-title {
+	margin: 0 0 32px;
+}
+
+.comment-list article,
+.comment-list .pingback,
+.comment-list .trackback {
+  	padding: 32px 0;
+}
+
+.comment-author .avatar {
+	height: 32px;
+	margin-right: 16px;
+	width: 32px;
+}
+
+.comment-metadata,
+.pingback .edit-link {
+ 	font-size: 17px;
+ 	line-height: (24/17);
+}
+
+.comment-metadata {
+	margin-bottom: 32px;
+}
+
+.comment-metadata .edit-link {
+	margin-left: 16px;
+}
+
+.pingback .edit-link {
+	margin-left: 16px;
+}
+
+.comment-content ul,
+.comment-content ol {
+	margin: 0 0 32px 28px;
+}
+
+.comment-list .reply {
+	font-size: 17px;
+}
+
+.comment-list .reply a {
+	margin-top: 32px;
+	padding: 6.5px 13px;
+}
+
+.comment-form {
+	padding-top: 32px;
+}
+
+
+.comment-notes,
+.comment-awaiting-moderation,
+.logged-in-as,
+.form-allowed-tags {
+	color: #666;
+	font-size: 17px;
+	line-height: (28/17);
+	margin-bottom: 32px;
+}
+
+.no-comments {
+  padding-top: 32px;
+}
+
+/* Main Navigation */
+.main-navigation .menu {
+	max-width: 770px;
+	margin: 0 auto;
+	padding: 0 64px;
+}
+}
