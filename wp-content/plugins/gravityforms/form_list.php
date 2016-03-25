@@ -183,6 +183,8 @@ class GFFormList {
 
 		</style>
 
+		<?php if ( GFCommon::current_user_can_any( 'gravityforms_create_form' ) ) { ?>
+
 		<div id="gf_new_form_modal" style="display:none;">
 			<div class="gf_new_form_modal_container">
 
@@ -198,14 +200,22 @@ class GFFormList {
 				</div>
 
 				<div class="submit-row">
-					<?php echo apply_filters( 'gform_new_form_button', '<input id="save_new_form" type="button" class="button button-large button-primary" value="' . esc_html__( 'Create Form', 'gravityforms' ) . '" onclick="saveNewForm();" tabindex="9002" />' ); ?>
+
+					<?php
+
+					/**
+					 * Allows for modification of the "New Form" button HTML
+					 *
+					 * @param string The HTML rendered for the "New Form" button.
+					 */
+					echo apply_filters( 'gform_new_form_button', '<input id="save_new_form" type="button" class="button button-large button-primary" value="' . esc_html__( 'Create Form', 'gravityforms' ) . '" onclick="saveNewForm();" tabindex="9002" />' ); ?>
 					<div id="gf_new_form_error_message" style="display:inline-block;"></div>
 				</div>
 
 			</div>
 		</div>
 
-		<?php // - end of new form modal - // ?>
+		<?php } // - end of new form modal - // ?>
 
 		<script text="text/javascript">
 			function TrashForm(form_id) {
@@ -227,7 +237,7 @@ class GFFormList {
 			}
 
 			function ConfirmDeleteForm(form_id){
-				if( confirm(<?php echo json_encode( __( 'WARNING: You are about to delete this form and ALL entries associated with it. ', 'gravityforms' ) . __( 'Cancel to stop, OK to delete.', 'gravityforms' ) ); ?>) ){
+				if( confirm(<?php echo json_encode( __( 'WARNING: You are about to delete this form and ALL entries associated with it. ', 'gravityforms' ) . esc_html__( 'Cancel to stop, OK to delete.', 'gravityforms' ) ); ?>) ){
 					DeleteForm(form_id);
 				}
 			}
@@ -247,11 +257,11 @@ class GFFormList {
 				var is_active = img.src.indexOf("active1.png") >= 0
 				if (is_active) {
 					img.src = img.src.replace("active1.png", 'active0.png');
-					jQuery(img).attr('title', <?php echo json_encode( __( 'Inactive', 'gravityforms' ) ); ?>).attr('alt', <?php echo json_encode( __( 'Inactive', 'gravityforms' ) ); ?>);
+					jQuery(img).attr('title', <?php echo json_encode( esc_attr__( 'Inactive', 'gravityforms' ) ); ?>).attr('alt', <?php echo json_encode( esc_attr__( 'Inactive', 'gravityforms' ) ); ?>);
 				}
 				else {
 					img.src = img.src.replace("active0.png", 'active1.png');
-					jQuery(img).attr('title', <?php echo json_encode( __( 'Active', 'gravityforms' ) ); ?>).attr('alt', <?php echo json_encode( __( 'Active', 'gravityforms' ) ); ?>);
+					jQuery(img).attr('title', <?php echo json_encode( esc_attr__( 'Active', 'gravityforms' ) ); ?>).attr('alt', <?php echo json_encode( esc_attr__( 'Active', 'gravityforms' ) ); ?>);
 				}
 
 				UpdateCount("active_count", is_active ? -1 : 1);
@@ -294,8 +304,10 @@ class GFFormList {
 		<div class="wrap <?php echo sanitize_html_class( GFCommon::get_browser_class() ); ?>">
 
 		<h2>
-			<?php esc_html_e( 'Forms', 'gravityforms' ); ?>
-			<a class="add-new-h2" href="" onclick="return loadNewFormModal();"><?php esc_html_e( 'Add New', 'gravityforms' ) ?></a>
+			<?php esc_html_e( 'Forms', 'gravityforms' );
+			if ( GFCommon::current_user_can_any( 'gravityforms_create_form' ) ) {
+				echo '<a class="add-new-h2" href="" onclick="return loadNewFormModal();">' . esc_html__( 'Add New', 'gravityforms' ) . '</a>';
+			} ?>
 		</h2>
 
 		<?php if ( isset( $message ) ) { ?>
@@ -348,6 +360,12 @@ class GFFormList {
 					</select>
 					<?php
 					$apply_button = '<input type="submit" class="button" value="' . __( 'Apply', 'gravityforms' ) . '" onclick="return gfConfirmBulkAction(\'bulk_action\');"/>';
+
+					/**
+					 * A filter that allows for modification of the form "Apply" button
+					 *
+					 * @param string $apply_button The HTML for the "Apply" Button
+					 */
 					echo apply_filters( 'gform_form_apply_button', $apply_button );
 					?>
 
@@ -560,6 +578,12 @@ class GFFormList {
 					</select>
 					<?php
 					$apply_button = '<input type="submit" class="button" value="' . esc_attr__( 'Apply', 'gravityforms' ) . '" onclick="return gfConfirmBulkAction(\'bulk_action2\');"/>';
+
+					/**
+					 * A filter that allows for modification of the form "Apply" button
+					 *
+					 * @param string $apply_button The HTML for the "Apply" Button
+					 */
 					echo apply_filters( 'gform_form_apply_button', $apply_button );
 				}
 				?>
@@ -637,7 +661,7 @@ class GFFormList {
 
 			function loadNewFormModal() {
 				resetNewFormModal();
-				tb_show(<?php echo json_encode( __( 'Create a New Form', 'gravityforms' ) ); ?>, '#TB_inline?width=375&amp;inlineId=gf_new_form_modal');
+				tb_show(<?php echo json_encode( esc_html__( 'Create a New Form', 'gravityforms' ) ); ?>, '#TB_inline?width=375&amp;inlineId=gf_new_form_modal');
 				jQuery('#new_form_title').focus();
 				return false;
 			}
@@ -651,7 +675,7 @@ class GFFormList {
 				jQuery('#gf_new_form_error_message').html('');
 
 				var origVal = createButton.val();
-				createButton.val(<?php echo json_encode( __( 'Creating Form...', 'gravityforms' ) ); ?>);
+				createButton.val(<?php echo json_encode( esc_html__( 'Creating Form...', 'gravityforms' ) ); ?>);
 
 				var form = {
 					title: jQuery('#new_form_title').val(),
@@ -660,7 +684,7 @@ class GFFormList {
 					descriptionPlacement:'below',
 					button: {
 						type: 'text',
-						text: <?php echo json_encode( __( 'Submit', 'gravityforms' ) ); ?>,
+						text: <?php echo json_encode( esc_html__( 'Submit', 'gravityforms' ) ); ?>,
 						imageUrl : ''
 					},
 					fields:[]
@@ -683,7 +707,7 @@ class GFFormList {
 						createButton.val(origVal);
 					} else {
 						location.href = respData.redirect;
-						createButton.val(<?php echo json_encode( __( 'Saved! Redirecting...', 'gravityforms' ) ); ?>);
+						createButton.val(<?php echo json_encode( esc_html__( 'Saved! Redirecting...', 'gravityforms' ) ); ?>);
 					}
 
 				});
