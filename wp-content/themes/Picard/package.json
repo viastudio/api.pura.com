@@ -1,0 +1,39 @@
+{
+  "name": "picard-r",
+  "version": "0.0.0",
+  "description": "The next generation WordPress theme boilerplate",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Automattic/Picard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Automattic/Picard/issues"
+  },
+  "homepage": "https://github.com/Automattic/Picard",
+  "devDependencies": {
+    "browserify": "~7.0.3",
+    "gulp": "~3.8.10",
+    "gulp-autoprefixer": "^2.0.0",
+    "gulp-load-plugins": "~0.9.0",
+    "gulp-minify-css": "~1.0.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-sass": "^2.2.0",
+    "gulp-sourcemaps": "~1.2.8",
+    "gulp-uglify": "~1.3.0",
+    "gulp-util": "~3.0.1",
+    "gulp-watch": "^4.1.0",
+    "page": "~1.5.0",
+    "react": "~0.12.2",
+    "reactify": "~0.17.1",
+    "superagent": "^1.2.0",
+    "vinyl-buffer": "~1.0.0",
+    "vinyl-source-stream": "~1.0.0",
+    "watchify": "~2.2.1"
+  }
+}

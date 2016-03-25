@@ -1,0 +1,45 @@
+.picard-enter {
+	opacity: 0.01;
+	position: absolute;
+	transition: opacity .01s ease-in;
+	width: 100%;
+}
+
+.picard-enter.picard-enter-active {
+	opacity: 1;
+}
+
+.picard-leave {
+	opacity: 1;
+	position: absolute;
+	transition: opacity .01s ease-in;
+	width: 100%;
+}
+
+.picard-leave.picard-leave-active {
+	opacity: 0.01;
+}
+
+body.single {
+	.picard-enter {
+		opacity: 0.01;
+		position: absolute;
+		transition: opacity .7s ease-in;
+		width: 100%;
+	}
+
+	.picard-enter.picard-enter-active {
+		opacity: 1;
+	}
+
+	.picard-leave {
+		opacity: 1;
+		position: absolute;
+		transition: opacity .7s ease-in;
+		width: 100%;
+	}
+
+	.picard-leave.picard-leave-active {
+		opacity: 0.01;
+	}
+}
