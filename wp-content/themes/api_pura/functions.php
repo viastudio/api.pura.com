@@ -2,8 +2,13 @@
 /**
  * Set the content width based on the theme's design and stylesheet.
  */
-if (! isset( $content_width)) {
+if (!isset($content_width)) {
     $content_width = 740; /* pixels */
+}
+
+add_action('init', 'allow_origin');
+function allow_origin() {
+    header("Access-Control-Allow-Origin: *");
 }
 
 if (! function_exists('silencio_setup')) {
