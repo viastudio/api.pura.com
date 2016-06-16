@@ -11,7 +11,6 @@ class ThemeOptionsController {
 
     public function __construct() {
         $this->namespace = $this->namespaceBase . '/' . $this->version;
-        add_action('rest_api_init', [$this, 'register_routes']);
     }
 
     public function register_routes() {
@@ -29,5 +28,3 @@ class ThemeOptionsController {
         return new \WP_REST_Response($response);
     }
 }
-
-new ThemeOptionsController();

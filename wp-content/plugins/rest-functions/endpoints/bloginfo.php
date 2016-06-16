@@ -12,7 +12,6 @@ class BloginfoController {
 
     public function __construct() {
         $this->namespace = $this->namespaceBase . '/' . $this->version;
-        add_action('rest_api_init', [$this, 'register_routes']);
     }
 
     public function register_routes() {
@@ -25,7 +24,7 @@ class BloginfoController {
         ]);
 
         // GET /rest-functions/v1/bloginfo/info_string
-        register_rest_route($this->namespace, "/{$this->base}/{$this->alpharegex}", [
+        register_rest_route($this->namespace, "/{$this->base}/{$this->alphaRegex}", [
             'methods' => \WP_REST_Server::READABLE,
             'callback' => [$this, 'blogInfo'],
             'args' => [
@@ -53,10 +52,4 @@ class BloginfoController {
 
         return new \WP_REST_Response($response);
     }
-
-    // Function to parse the URL and extract the input after /bloginfo
-
-    // Function to send parsed result to get_bloginfo and return result or WP_Error
 }
-
-new BloginfoController();
