@@ -4,6 +4,8 @@ Description: Adds an API endpoint at /rest-functions/v1/theme-options
 Version: 0.1
 */
 
+namespace RestFunctions\Endpoints;
+
 class ThemeOptionsController {
     protected $base = 'theme-options';
     protected $version = 'v1';

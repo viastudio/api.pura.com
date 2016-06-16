@@ -1,0 +1,7 @@
+{
+  "autoload": {
+    "psr-4": {"RestFunctions\\": "src/"}
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
