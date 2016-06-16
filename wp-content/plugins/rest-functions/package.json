@@ -1,0 +1,8 @@
+{
+  "name": "rest-functions",
+  "version": "0.0.1",
+  "dependencies": {
+    "grunt": "~0.4.5",
+    "grunt-composer": "~0.4.4"
+  }
+}
