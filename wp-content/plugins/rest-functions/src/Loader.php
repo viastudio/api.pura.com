@@ -3,6 +3,7 @@ namespace RestFunctions;
 
 use RestFunctions\Endpoints\BloginfoController;
 use RestFunctions\Endpoints\ThemeOptionsController;
+use RestFunctions\Endpoints\HomePageController;
 
 class Loader {
     public function __construct() {
@@ -12,5 +13,6 @@ class Loader {
     public function init_routes() {
         (new BloginfoController())->register_routes();
         (new ThemeOptionsController())->register_routes();
+        (new HomePageController())->register_routes();
     }
 }
