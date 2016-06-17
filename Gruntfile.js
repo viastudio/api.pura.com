@@ -13,6 +13,14 @@ module.exports = function(grunt) {
                     }
                 }
             },
+            plugin_npm_install: {
+                command: 'npm install',
+                options: {
+                    execOptions: {
+                        cwd: '<%= pkg.pluginPath %>/<%= pkg.apiPlugin %>/'
+                    }
+                }
+            },
             theme_bower_install: {
                 command: 'bower install',
                 options: {
@@ -77,7 +85,8 @@ module.exports = function(grunt) {
         hub: {
             // Build for stage/prod
             build: {
-                src: ['<%= pkg.themesPath %>/*/Gruntfile.js']
+                src: ['<%= pkg.themesPath %>/*/Gruntfile.js'],
+                src: ['<%= pkg.pluginPath %>/<%= pkg.apiPlugin %>/Gruntfile.js']
             }
         }
     });
@@ -88,5 +97,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-via-filesystem');
 
     grunt.registerTask('default', ['shell:theme_npm_install', 'shell:theme_bower_install', 'hub:build']); // Default task - executes when you run grunt
-    grunt.registerTask('setup', ['shell:wordpress_download', 'shell:theme_npm_install', 'shell:theme_bower_install', 'via_filesystem']);
+    grunt.registerTask('setup', ['shell:wordpress_download', 'shell:theme_npm_install', 'shell:theme_bower_install', 'via_filesystem', 'shell:plugin_npm_install']);
 };
