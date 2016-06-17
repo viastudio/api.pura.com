@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "domain": "api_pura",
   "themesPath": "wp-content/themes",
+  "pluginPath": "wp-content/plugins",
+  "apiPlugin": "rest-functions",
   "wpengine-install": "via_pura",
   "dependencies": {
     "grunt": "~0.4.4",
