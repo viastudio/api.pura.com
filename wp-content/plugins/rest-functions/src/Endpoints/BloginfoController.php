@@ -17,13 +17,6 @@ class BloginfoController {
     }
 
     public function register_routes() {
-        // GET /rest-functions/v1/bloginfo
-        register_rest_route($this->namespace, "/{$this->base}", [
-            'methods' => \WP_REST_Server::READABLE,
-            'callback' => [$this, 'blogInfo']
-            // 'permission_callback' => [$this, ?]
-        ]);
-
         // GET /rest-functions/v1/bloginfo/info_string
         register_rest_route($this->namespace, "/{$this->base}/{$this->alphaRegex}", [
             'methods' => \WP_REST_Server::READABLE,
