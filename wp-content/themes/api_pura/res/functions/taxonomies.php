@@ -24,10 +24,12 @@ function silencio_register_taxonomies() {
     $args = array(
         'labels'            => $labels,
         'hierarchical'      => false,
-        'rewrite'           => $slug
+        'rewrite'           => $slug,
+        'show_in_rest'      => true,
+        'rest_base'         => strtolower($plural)
     );
 
-    register_taxonomy('sil_' . $slug, array('silencio_slider'), $args);
+    register_taxonomy('sil_' . $slug, array('sil_slider'), $args);
 }
 
 add_action('init', 'silencio_register_taxonomies');

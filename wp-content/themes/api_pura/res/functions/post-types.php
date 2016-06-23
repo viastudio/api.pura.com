@@ -21,6 +21,8 @@ function silencio_register_post_types() {
             'public' => true,
             'supports' => array('title', 'editor', 'author', 'excerpt', 'revisions', 'thumbnail'),
             'has_archive' => true,
+            'show_in_rest' => true,
+            'rest_base' => strtolower($plural),
             'rewrite' => array('slug' => $slug)
         )
     );
