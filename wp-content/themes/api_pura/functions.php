@@ -250,3 +250,13 @@ if (!function_exists('debug')) {
         echo '</pre>';
     }
 }
+
+// Strips the domain out of the URL so React doesn't throw an error
+add_filter('rest_menus_format_menu_item', 'filter_menus', 10, 3);
+function filter_menus($menu_data) {
+    if ($menu_data['object'] !== 'custom') {
+        $parsed_url = parse_url($menu_data['url']);
+         $menu_data['url'] = str_replace($parsed_url['scheme'] . '://' . $parsed_url['host'], '', $menu_data['url']);
+    }
+    return $menu_data;
+}
