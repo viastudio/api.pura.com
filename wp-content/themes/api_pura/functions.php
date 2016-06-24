@@ -260,3 +260,21 @@ function filter_menus($menu_data) {
     }
     return $menu_data;
 }
+
+// Add meta data to default wp-api posts / pages
+add_action('rest_api_init', 'registerMetaData');
+function registerMetaData() {
+    register_rest_field(
+        ['post', 'page'],
+        'meta',
+        [
+            'get_callback' => 'getMetaData',
+            'update_callback' => null,
+            'schema' => null
+        ]
+    );
+}
+
+function getMetaData($object, $field_name, $request) {
+    return get_post_meta($object['id']);
+}
