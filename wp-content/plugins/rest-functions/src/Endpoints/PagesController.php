@@ -6,7 +6,11 @@ Version: 0.1
 
 namespace RestFunctions\Endpoints;
 
+use RestFunctions\Traits\FeaturedImageHelper;
+
 class PagesController {
+    use FeaturedImageHelper;
+
     protected $base = 'pages';
     protected $version = 'v1';
     protected $alphaRegex = '(?P<slug>\S+)';
@@ -54,6 +58,12 @@ class PagesController {
         ];
 
         $response['key'] = $post[0]->ID;
+
+        $featuredImage = $this->getFeaturedImage($post[0]->ID);
+
+        $post[0]->featured_media = $featuredImage['featured_media'];
+        $post[0]->featured_image_tag = $featuredImage['featured_image_tag'];
+
         $response['data'] = $post[0];
 
         return new \WP_REST_Response($response);
