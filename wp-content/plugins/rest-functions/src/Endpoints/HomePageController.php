@@ -6,7 +6,11 @@ Version: 0.1
 
 namespace RestFunctions\Endpoints;
 
+use RestFunctions\Traits\FeaturedImageHelper;
+
 class HomePageController {
+    use FeaturedImageHelper;
+
     protected $base = 'homepage';
     protected $version = 'v1';
     protected $namespaceBase = 'rest-functions';
@@ -36,6 +40,11 @@ class HomePageController {
             'raw' => $post->post_content,
             'rendered' => apply_filters('the_content', $post->post_content)
         ];
+
+        $featuredImage = $this->getFeaturedImage($post->ID);
+
+        $post->featured_media = $featuredImage['featured_media'];
+        $post->featured_image_tag = $featuredImage['featured_image_tag'];
 
         $response['data'] = $post;
         return new \WP_REST_Response($response);
