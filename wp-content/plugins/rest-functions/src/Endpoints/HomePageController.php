@@ -26,8 +26,18 @@ class HomePageController {
     public function homePage() {
         $frontpage_id = get_option('page_on_front');
         $response['key'] = 'homepage';
-        $response['data'] = get_post($frontpage_id);
+        $post = get_post($frontpage_id);
+        $post->title = [
+            'raw' => $post->post_title,
+            'rendered' => get_the_title($post->ID)
+        ];
 
+        $post->content = [
+            'raw' => $post->post_content,
+            'rendered' => apply_filters('the_content', $post->post_content)
+        ];
+
+        $response['data'] = $post;
         return new \WP_REST_Response($response);
     }
 }
