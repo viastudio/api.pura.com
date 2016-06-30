@@ -6,24 +6,21 @@ Version: 0.1
 
 namespace RestFunctions\Endpoints;
 
-use RestFunctions\Traits\FeaturedImageHelper;
-
-class HomePageController {
-    use FeaturedImageHelper;
-
+class HomePageController extends \WP_REST_Posts_Controller {
     protected $base = 'homepage';
     protected $version = 'v1';
     protected $namespaceBase = 'rest-functions';
+    protected $post_type;
 
-    public function __construct() {
+    public function __construct($post_type = 'page') {
         $this->namespace = $this->namespaceBase . '/' . $this->version;
+        $this->post_type = $post_type;
     }
 
     public function register_routes() {
         register_rest_route($this->namespace, "/{$this->base}", [
             'methods' => \WP_REST_Server::READABLE,
             'callback' => [$this, 'homePage']
-            // 'permission_callback' => [$this, ?]
         ]);
     }
 
@@ -31,22 +28,7 @@ class HomePageController {
         $frontpage_id = get_option('page_on_front');
         $response['key'] = 'homepage';
         $post = get_post($frontpage_id);
-        $post->title = [
-            'raw' => $post->post_title,
-            'rendered' => get_the_title($post->ID)
-        ];
-
-        $post->content = [
-            'raw' => $post->post_content,
-            'rendered' => apply_filters('the_content', $post->post_content)
-        ];
-
-        $featuredImage = $this->getFeaturedImage($post->ID);
-
-        $post->featured_media = $featuredImage['featured_media'];
-        $post->featured_image_tag = $featuredImage['featured_image_tag'];
-
-        $response['data'] = $post;
-        return new \WP_REST_Response($response);
+        $data = $this->prepare_item_for_response($post, $request);
+        return rest_ensure_response($data);
     }
 }

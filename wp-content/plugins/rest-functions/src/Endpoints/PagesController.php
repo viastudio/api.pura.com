@@ -6,11 +6,7 @@ Version: 0.1
 
 namespace RestFunctions\Endpoints;
 
-use RestFunctions\Traits\FeaturedImageHelper;
-
 class PagesController extends \WP_REST_Posts_Controller {
-    use FeaturedImageHelper;
-
     protected $base = 'pages';
     protected $version = 'v1';
     protected $alphaRegex = '(?P<slug>\S+)';
