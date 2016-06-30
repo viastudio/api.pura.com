@@ -8,7 +8,7 @@ namespace RestFunctions\Endpoints;
 
 use RestFunctions\Traits\FeaturedImageHelper;
 
-class PagesController {
+class PagesController extends \WP_REST_Posts_Controller {
     use FeaturedImageHelper;
 
     protected $base = 'pages';
@@ -31,8 +31,8 @@ class PagesController {
                         return is_string($param);
                     }
                 ]
-            ]
-            // 'permission_callback' => [$this, ?]
+            ],
+            'schema' => array($this, 'get_public_item_schema')
         ]);
     }
 
@@ -46,26 +46,7 @@ class PagesController {
         ];
 
         $post = get_posts($args);
-
-        $post[0]->title = [
-            'raw' => $post[0]->post_title,
-            'rendered' => get_the_title($post[0]->ID)
-        ];
-
-        $post[0]->content = [
-            'raw' => $post[0]->post_content,
-            'rendered' => apply_filters('the_content', $post[0]->post_content)
-        ];
-
-        $response['key'] = $post[0]->ID;
-
-        $featuredImage = $this->getFeaturedImage($post[0]->ID);
-
-        $post[0]->featured_media = $featuredImage['featured_media'];
-        $post[0]->featured_image_tag = $featuredImage['featured_image_tag'];
-
-        $response['data'] = $post[0];
-
-        return new \WP_REST_Response($response);
+        $data = $this->prepare_item_for_response($post[0], $request);
+        return rest_ensure_response($data);
     }
 }

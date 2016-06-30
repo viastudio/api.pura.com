@@ -13,4 +13,8 @@ if (!defined('WPINC')) {
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+if (!class_exists('WP_REST_Controller')) {
+    die('The REST API plugin must be activated for this plugin.');
+}
+
 $restFunctions = new \RestFunctions\Loader();
