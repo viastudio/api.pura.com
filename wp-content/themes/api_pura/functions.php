@@ -256,7 +256,7 @@ add_filter('rest_menus_format_menu_item', 'filter_menus', 10, 3);
 function filter_menus($menu_data) {
     if ($menu_data['object'] !== 'custom') {
         $parsed_url = parse_url($menu_data['url']);
-         $menu_data['url'] = str_replace($parsed_url['scheme'] . '://' . $parsed_url['host'], '', $menu_data['url']);
+        $menu_data['url'] = str_replace($parsed_url['scheme'] . '://' . $parsed_url['host'], '', $menu_data['url']);
     }
     return $menu_data;
 }
@@ -295,4 +295,22 @@ function registerFeaturedImages() {
 
 function getFeaturedImage($object, $field_name, $request) {
     return get_the_post_thumbnail($object['id']);
+}
+
+// Add author data to default wp-api posts / pages
+add_action('rest_api_init', 'registerAuthorMeta');
+function registerAuthorMeta() {
+    register_rest_field(
+        ['post', 'page'],
+        'author_meta',
+        [
+            'get_callback' => 'appendAuthorMeta',
+            'update_callback' => null,
+            'schema' => null
+        ]
+    );
+}
+
+function appendAuthorMeta($object, $field_name, $request) {
+    return get_user_meta($object['author']);
 }
