@@ -5,6 +5,7 @@ use RestFunctions\Endpoints\BloginfoController;
 use RestFunctions\Endpoints\ThemeOptionsController;
 use RestFunctions\Endpoints\HomePageController;
 use RestFunctions\Endpoints\PagesController;
+use RestFunctions\Endpoints\PostsController;
 
 class Loader {
     public function __construct() {
@@ -16,5 +17,6 @@ class Loader {
         (new ThemeOptionsController())->register_routes();
         (new HomePageController())->register_routes();
         (new PagesController())->register_routes();
+        (new PostsController())->register_routes();
     }
 }
