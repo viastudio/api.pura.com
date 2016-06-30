@@ -278,3 +278,21 @@ function registerMetaData() {
 function getMetaData($object, $field_name, $request) {
     return get_post_meta($object['id']);
 }
+
+// Add featured images to default wp-api posts / pages
+add_action('rest_api_init', 'registerFeaturedImages');
+function registerFeaturedImages() {
+    register_rest_field(
+        ['post', 'page'],
+        'featured_image',
+        [
+            'get_callback' => 'getFeaturedImage',
+            'update_callback' => null,
+            'schema' => null
+        ]
+    );
+}
+
+function getFeaturedImage($object, $field_name, $request) {
+    return get_the_post_thumbnail($object['id']);
+}
