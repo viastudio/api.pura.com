@@ -15,9 +15,11 @@ class PagesController extends \WP_REST_Posts_Controller {
     protected $version = 'v1';
     protected $alphaRegex = '(?P<slug>\S+)';
     protected $namespaceBase = 'rest-functions';
+    protected $post_type;
 
-    public function __construct() {
+    public function __construct($post_type = 'page') {
         $this->namespace = $this->namespaceBase . '/' . $this->version;
+        $this->post_type = $post_type;
     }
 
     public function register_routes() {
