@@ -312,5 +312,12 @@ function registerAuthorMeta() {
 }
 
 function appendAuthorMeta($object, $field_name, $request) {
-    return get_user_meta($object['author']);
+    $user_meta = get_user_meta($object['author']);
+
+    return [
+        'nickname' => $user_meta['nickname'][0],
+        'first_name' => $user_meta['first_name'][0],
+        'last_name' => $user_meta['last_name'][0],
+        'avatar' => get_avatar_url($object['author'])
+    ];
 }
