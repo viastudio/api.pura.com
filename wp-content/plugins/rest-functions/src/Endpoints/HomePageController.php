@@ -13,8 +13,8 @@ class HomePageController extends \WP_REST_Posts_Controller {
     protected $post_type;
 
     public function __construct($post_type = 'page') {
+        parent::__construct($post_type);
         $this->namespace = $this->namespaceBase . '/' . $this->version;
-        $this->post_type = $post_type;
     }
 
     public function register_routes() {
