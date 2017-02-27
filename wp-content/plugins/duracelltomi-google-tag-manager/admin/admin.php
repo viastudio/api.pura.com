@@ -27,7 +27,8 @@ define( 'GTM4WP_PHASE_DEPRECATED',   'gtm4wp-phase-deprecated' );
 $GLOBALS["gtm4wp_def_user_notices_dismisses"] = array(
 	"enter-gtm-code" => false,
 	"wc-ga-plugin-warning" => false,
-	"wc-gayoast-plugin-warning" => false
+	"wc-gayoast-plugin-warning" => false,
+	"wc-1-3-upgrade-info" => false
 );
 
 $GLOBALS["gtm4wp_includefieldtexts"] = array(
@@ -46,9 +47,14 @@ $GLOBALS["gtm4wp_includefieldtexts"] = array(
 		"description" => __( "Check this option to include the tags of the current post.", 'duracelltomi-google-tag-manager' ),
 		"phase"       => GTM4WP_PHASE_STABLE
 	),
+	GTM4WP_OPTION_INCLUDE_AUTHORID    => array(
+		"label"       => __( "Post author ID", 'duracelltomi-google-tag-manager' ),
+		"description" => __( "Check this option to include the ID of the author on the current post or author page.", 'duracelltomi-google-tag-manager' ),
+		"phase"       => GTM4WP_PHASE_STABLE
+	),
 	GTM4WP_OPTION_INCLUDE_AUTHOR      => array(
 		"label"       => __( "Post author name", 'duracelltomi-google-tag-manager' ),
-		"description" => __( "Check this option to include the author's name of the current post or author page.", 'duracelltomi-google-tag-manager' ),
+		"description" => __( "Check this option to include the name of the author on the current post or author page.", 'duracelltomi-google-tag-manager' ),
 		"phase"       => GTM4WP_PHASE_STABLE
 	),
 	GTM4WP_OPTION_INCLUDE_POSTDATE    => array(
@@ -66,6 +72,11 @@ $GLOBALS["gtm4wp_includefieldtexts"] = array(
 		"description" => __( "Check this option to include the count of the posts currently shown on the page and the total number of posts in the category/tag/any taxonomy.", 'duracelltomi-google-tag-manager' ),
 		"phase"       => GTM4WP_PHASE_STABLE
 	),
+  GTM4WP_OPTION_INCLUDE_POSTID   => array(
+    "label"       => __( "Post ID", 'duracelltomi-google-tag-manager' ),
+    "description" => __( "Check this option to include the post id.", 'duracelltomi-google-tag-manager' ),
+    "phase"       => GTM4WP_PHASE_STABLE
+  ),
 	GTM4WP_OPTION_INCLUDE_SEARCHDATA  => array(
 		"label"       => __( "Search data", 'duracelltomi-google-tag-manager' ),
 		"description" => __( "Check this option to include the search term, referring page URL and number of results on the search page.", 'duracelltomi-google-tag-manager' ),
@@ -84,6 +95,11 @@ $GLOBALS["gtm4wp_includefieldtexts"] = array(
 	GTM4WP_OPTION_INCLUDE_USERID      => array(
 		"label"       => __( "Logged in user ID", 'duracelltomi-google-tag-manager' ),
 		"description" => __( "Check this option to include the ID of the logged in user.", 'duracelltomi-google-tag-manager' ),
+		"phase"       => GTM4WP_PHASE_STABLE
+	),
+	GTM4WP_OPTION_INCLUDE_USEREMAIL   => array(
+		"label"       => __( "Logged in user email", 'duracelltomi-google-tag-manager' ),
+		"description" => __( "Check this option to include the email address of the logged in user.", 'duracelltomi-google-tag-manager' ),
 		"phase"       => GTM4WP_PHASE_STABLE
 	),
 	GTM4WP_OPTION_INCLUDE_REMARKETING => array(
@@ -115,6 +131,21 @@ $GLOBALS["gtm4wp_includefieldtexts"] = array(
 		"label"       => __( "Weather data units", 'duracelltomi-google-tag-manager' ),
 		"description" => __( "Select which temperature units you would like to use.", 'duracelltomi-google-tag-manager' ),
 		"phase"       => GTM4WP_PHASE_EXPERIMENTAL
+	),
+	GTM4WP_OPTION_INCLUDE_WEATHEROWMAPI => array(
+		"label"       => __( "OpenWeatherMap API key", 'duracelltomi-google-tag-manager' ),
+		"description" => __( 'Enter your OpenWeatherMap API key here. <a href="http://openweathermap.org/price" target="_blank">Get a free API key here</a>.', 'duracelltomi-google-tag-manager' ),
+		"phase"       => GTM4WP_PHASE_EXPERIMENTAL
+	),
+	GTM4WP_OPTION_INCLUDE_SITEID => array(
+		"label"       => __( "Site ID", 'duracelltomi-google-tag-manager' ),
+		"description" => __( 'ID of the current site in a WordPress Multisite environment', 'duracelltomi-google-tag-manager' ),
+		"phase"       => GTM4WP_PHASE_STABLE
+	),
+	GTM4WP_OPTION_INCLUDE_SITENAME => array(
+		"label"       => __( "Site name", 'duracelltomi-google-tag-manager' ),
+		"description" => __( 'Name of the current site in a WordPress Multisite environment', 'duracelltomi-google-tag-manager' ),
+		"phase"       => GTM4WP_PHASE_STABLE
 	)
 );
 
@@ -392,9 +423,9 @@ $GLOBALS["gtm4wp_integratefieldtexts"] = array(
 		"phase"         => GTM4WP_PHASE_STABLE,
 		"plugintocheck" => "woocommerce/woocommerce.php"
 	),
-	GTM4WP_OPTION_INTEGRATE_WCREMARKETINGSKU => array(
+	GTM4WP_OPTION_INTEGRATE_WCUSESKU => array(
 		"label"         => __( "Use SKU instead of ID", 'duracelltomi-google-tag-manager' ),
-		"description"   => __( "Check this to use product SKU in the dynamic remarketing variables instead of the ID of the products. Will fallback to ID if no SKU is set.", 'duracelltomi-google-tag-manager' ),
+		"description"   => __( "Check this to use product SKU instead of the ID of the products for remarketing and ecommerce tracking. Will fallback to ID if no SKU is set.", 'duracelltomi-google-tag-manager' ),
 		"phase"         => GTM4WP_PHASE_EXPERIMENTAL,
 		"plugintocheck" => "woocommerce/woocommerce.php"
 	)
@@ -405,7 +436,7 @@ function gtm4wp_admin_output_section( $args ) {
 
 	switch( $args["id"] ) {
 		case GTM4WP_ADMIN_GROUP_GENERAL: {
-			_e( 'This plugin is intended to be used by IT guys and marketing staff. Please be sure you read the <a href="https://developers.google.com/tag-manager/" target="_blank">Google Tag Manager Help Center</a> before you start using this plugin.<br /><br />', 'duracelltomi-google-tag-manager' );
+			_e( 'This plugin is intended to be used by IT girls&guys and marketing staff. Please be sure you read the <a href="https://developers.google.com/tag-manager/" target="_blank">Google Tag Manager Help Center</a> before you start using this plugin.<br /><br />', 'duracelltomi-google-tag-manager' );
 
 			break;        
 		}
@@ -414,6 +445,10 @@ function gtm4wp_admin_output_section( $args ) {
 			_e( "Here you can check what data is needed to be included in the dataLayer to be able to access them in Google Tag Manager", 'duracelltomi-google-tag-manager' );
 			echo "<br />";
 			printf( __( '* Browser, OS and Device data is provided using <a href="%s">WhichBrowser</a> library.', 'duracelltomi-google-tag-manager' ), "http://whichbrowser.net/" );
+			if ( version_compare( PHP_VERSION, '5.4.0' ) < 0 ) {
+				echo "<br />";
+				_e( 'You are using an <strong>outdated</strong> version of PHP (5.3 or less). You <strong>should not turn on</strong> browser/device/os tracking as this can hurt your site. Please talk to your hosting and upgrade to PHP 5.4 or newer.', 'duracelltomi-google-tag-manager' );
+			}
 
 			break;        
 		}
@@ -483,7 +518,8 @@ function gtm4wp_admin_output_field( $args ) {
 		case GTM4WP_ADMIN_GROUP_PLACEMENT: {
 			echo '<input type="radio" id="' . GTM4WP_OPTIONS . '[' . GTM4WP_OPTION_GTM_PLACEMENT . ']_' . GTM4WP_PLACEMENT_FOOTER . '" name="' . GTM4WP_OPTIONS . '[' . GTM4WP_OPTION_GTM_PLACEMENT . ']" value="' . GTM4WP_PLACEMENT_FOOTER . '" ' . ( $gtm4wp_options[ GTM4WP_OPTION_GTM_PLACEMENT ] == GTM4WP_PLACEMENT_FOOTER ? 'checked="checked"' : '' ) . '/> ' . __( "Footer of the page (not recommended by Google, no tweak in your template required)", 'duracelltomi-google-tag-manager' ) . '<br />';
 			echo '<input type="radio" id="' . GTM4WP_OPTIONS . '[' . GTM4WP_OPTION_GTM_PLACEMENT . ']_' . GTM4WP_PLACEMENT_BODYOPEN . '" name="' . GTM4WP_OPTIONS . '[' . GTM4WP_OPTION_GTM_PLACEMENT . ']" value="' . GTM4WP_PLACEMENT_BODYOPEN . '" ' . ( $gtm4wp_options[ GTM4WP_OPTION_GTM_PLACEMENT ] == GTM4WP_PLACEMENT_BODYOPEN ? 'checked="checked"' : '' ) . '/> ' . __( "Custom (needs tweak in your template)", 'duracelltomi-google-tag-manager' ) . '<br />';
-			echo '<input type="radio" id="' . GTM4WP_OPTIONS . '[' . GTM4WP_OPTION_GTM_PLACEMENT . ']_' . GTM4WP_PLACEMENT_BODYOPEN_AUTO . '" name="' . GTM4WP_OPTIONS . '[' . GTM4WP_OPTION_GTM_PLACEMENT . ']" value="' . GTM4WP_PLACEMENT_BODYOPEN_AUTO . '" ' . ( $gtm4wp_options[ GTM4WP_OPTION_GTM_PLACEMENT ] == GTM4WP_PLACEMENT_BODYOPEN_AUTO ? 'checked="checked"' : '' ) . '/> ' . __( "Codeless injection (no tweak, right placement but experimental, could break your frontend)", 'duracelltomi-google-tag-manager' ) . '<br /><br />' . $args["description"];
+			echo '<input type="radio" id="' . GTM4WP_OPTIONS . '[' . GTM4WP_OPTION_GTM_PLACEMENT . ']_' . GTM4WP_PLACEMENT_BODYOPEN_AUTO . '" name="' . GTM4WP_OPTIONS . '[' . GTM4WP_OPTION_GTM_PLACEMENT . ']" value="' . GTM4WP_PLACEMENT_BODYOPEN_AUTO . '" ' . ( $gtm4wp_options[ GTM4WP_OPTION_GTM_PLACEMENT ] == GTM4WP_PLACEMENT_BODYOPEN_AUTO ? 'checked="checked"' : '' ) . '/> ' . __( "Codeless injection (no tweak, right placement but experimental, could break your frontend)", 'duracelltomi-google-tag-manager' ) . '<br />';
+			echo '<input type="radio" id="' . GTM4WP_OPTIONS . '[' . GTM4WP_OPTION_GTM_PLACEMENT . ']_' . GTM4WP_PLACEMENT_OFF . '" name="' . GTM4WP_OPTIONS . '[' . GTM4WP_OPTION_GTM_PLACEMENT . ']" value="' . GTM4WP_PLACEMENT_OFF . '" ' . ( $gtm4wp_options[ GTM4WP_OPTION_GTM_PLACEMENT ] == GTM4WP_PLACEMENT_OFF ? 'checked="checked"' : '' ) . '/> ' . __( "Off (only add data layer to the page source)", 'duracelltomi-google-tag-manager' ) . '<br /><br />' . $args["description"];
 			
 			break;
 		}
@@ -631,7 +667,7 @@ function gtm4wp_sanitize_options($options) {
 		// GTM container code placement
 		} else if ( $optionname == GTM4WP_OPTION_GTM_PLACEMENT ) {
 			$output[$optionname] = (int) $newoptionvalue;
-			if ( ( $output[$optionname] < 0) || ( $output[$optionname] > 2 ) ) {
+			if ( ( $output[$optionname] < 0) || ( $output[$optionname] > 3 ) ) {
 				$output[$optionname] = 0;
 			}
 
@@ -919,7 +955,8 @@ function gtm4wp_add_admin_js($hook) {
 			"weathertabtitle" => __( "Weather data" , 'duracelltomi-google-tag-manager' ),
 			"generaleventstabtitle" => __( "General events" , 'duracelltomi-google-tag-manager' ),
 			"mediaeventstabtitle" => __( "Media events" , 'duracelltomi-google-tag-manager' ),
-			"depecratedeventstabtitle" => __( "Deprecated" , 'duracelltomi-google-tag-manager' )
+			"depecratedeventstabtitle" => __( "Deprecated" , 'duracelltomi-google-tag-manager' ),
+			"sitetabtitle" => __( "Site" , 'duracelltomi-google-tag-manager' )
 		);
 		wp_localize_script( "admin-subtabs", 'gtm4wp', $subtabtexts );
 		wp_enqueue_script( "admin-subtabs" );
@@ -1017,7 +1054,7 @@ function gtm4wp_show_warning() {
 		echo '<div id="message" class="error"><p><strong>' . sprintf( __( 'To start using Google Tag Manager for WordPress, please <a href="%s">enter your GTM ID</a>', 'duracelltomi-google-tag-manager' ), "options-general.php?page=" . GTM4WP_ADMINSLUG ) . '</strong> | <a href="?enter-gtm-code" class="gtm4wp-dismiss-notice">' . __( 'Dismiss', 'duracelltomi-google-tag-manager' ) . '</a></p></div>';
 	}
 
-	if ( ( false === $gtm4wp_user_notices_dismisses["wc-ga-plugin-warning"] ) || ( false === $gtm4wp_user_notices_dismisses["wc-gayoast-plugin-warning"] ) ) {
+	if ( ( false === $gtm4wp_user_notices_dismisses["wc-ga-plugin-warning"] ) || ( false === $gtm4wp_user_notices_dismisses["wc-gayoast-plugin-warning"] ) || ( false === $gtm4wp_user_notices_dismisses["wc-1-3-upgrade-info"] ) ) {
 		$is_wc_active = $gtm4wp_options[ GTM4WP_OPTION_INTEGRATE_WCTRACKCLASSICEC ] ||
 				$gtm4wp_options[ GTM4WP_OPTION_INTEGRATE_WCTRACKENHANCEDEC ] ||
 				$gtm4wp_options[ GTM4WP_OPTION_INTEGRATE_WCREMARKETING ];
@@ -1037,6 +1074,10 @@ function gtm4wp_show_warning() {
 
 		if ( ( false === $gtm4wp_user_notices_dismisses["wc-gayoast-plugin-warning"] ) && $is_wc_active && is_plugin_active( "google-analytics-for-wordpress/googleanalytics.php" ) ) {
 			echo '<div id="message" class="error"><p><strong>' . __( 'Notice: you should deactivate the plugin "Google Analytics for WordPress by Yoast" if you are using Google Analytics tags inside Google Tag Manager!', 'duracelltomi-google-tag-manager' ) . '</strong> | <a href="?wc-gayoast-plugin-warning" class="gtm4wp-dismiss-notice">' . __( 'Dismiss', 'duracelltomi-google-tag-manager' ) . '</a></p></div>';
+		}
+
+		if ( $is_wc_active && ( false === $gtm4wp_user_notices_dismisses["wc-1-3-upgrade-info"] ) ) {
+			echo '<div id="message" class="error"><p><strong>' . sprintf( __( 'Warning: Using WooCommerce and upgrading to v1.3 of the GTM plugin? <a href="%s" target="_blank">Check this important blog post.</a>', 'duracelltomi-google-tag-manager' ), "https://duracelltomi.com/google-tag-manager-for-wordpress/how-to-articles/upgrading-woocommerce-settings-for-v1-3" ) . '</strong> | <a href="?wc-1-3-upgrade-info" class="gtm4wp-dismiss-notice">' . __( 'Dismiss', 'duracelltomi-google-tag-manager' ) . '</a></p></div>';
 		}
 	}
 }
@@ -1075,6 +1116,13 @@ function gtm4wp_add_plugin_action_links( $links, $file ) {
 	return $links;
 }
 
+function gtm4wp_show_upgrade_notification( $current_plugin_metadata, $new_plugin_metadata ) {
+	if ( isset( $new_plugin_metadata->upgrade_notice ) && strlen( trim( $new_plugin_metadata->upgrade_notice ) ) > 0 ) {
+		echo '<p style="background-color: #d54e21; padding: 10px; color: #f9f9f9; margin-top: 10px"><strong>Important Upgrade Notice:</strong> ';
+		echo esc_html($new_plugin_metadata->upgrade_notice), '</p>';
+	}
+}
+
 add_action( 'admin_init', 'gtm4wp_admin_init' );
 add_action( 'admin_menu', 'gtm4wp_add_admin_page' );
 add_action( 'admin_enqueue_scripts', 'gtm4wp_add_admin_js' );
@@ -1082,3 +1130,4 @@ add_action( 'admin_notices', 'gtm4wp_show_warning' );
 add_action( 'admin_head', 'gtm4wp_admin_head' );
 add_filter( 'plugin_action_links', 'gtm4wp_add_plugin_action_links', 10, 2 );
 add_action( 'wp_ajax_gtm4wp_dismiss_notice', 'gtm4wp_dismiss_notice' );
+add_action( 'in_plugin_update_message-duracelltomi-google-tag-manager-for-wordpress/duracelltomi-google-tag-manager-for-wordpress.php', 'gtm4wp_show_upgrade_notification', 10, 2 );
