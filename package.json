@@ -5,7 +5,6 @@
   "themesPath": "wp-content/themes",
   "pluginPath": "wp-content/plugins",
   "apiPlugin": "rest-functions",
-  "wpengine-install": "via_pura",
   "dependencies": {
     "grunt": "~0.4.4",
     "grunt-contrib-copy": "~0.5.0",
